@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route
-            path="/dashboard"
+            path="/Dashboard"
             element={
               <PrivateRoute>
                 <Dashboard />
