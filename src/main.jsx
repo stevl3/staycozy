@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import App from './App';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/dashboard';
 import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './AuthContext';
 
@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route
-            path="/Dashboard"
+            path="/dashboard"
             element={
               <PrivateRoute>
                 <Dashboard />
