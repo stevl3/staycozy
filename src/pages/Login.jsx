@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase/firebase';
+import { getDoc, doc } from 'firebase/firestore';
+import { auth, db } from '../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -10,11 +11,22 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // build the synthetic email
     const email = `${unitId}@demo.staycozy.com`.toLowerCase();
+
     try {
-      await signInWithEmailAndPassword(auth, email, accessCode);
-      navigate('/dashboard');
+      const userCredential = await signInWithEmailAndPassword(auth, email, accessCode);
+      const uid = userCredential.user.uid;
+
+      // Fetch Firestore user data
+      const userDoc = await getDoc(doc(db, 'users', uid));
+      const userData = userDoc.data();
+
+      // Redirect based on isAdmin
+      if (userData?.isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       alert('Invalid Unit ID or Access Code');
     }

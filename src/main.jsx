@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/dashboard';
 import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './AuthContext';
+import AdminDashboard from './pages/AdminDashboard';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -35,6 +37,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               </PrivateRoute>
             }
           />
+          <Route
+            path="/admin"
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
+              </PrivateRoute>
+            }
+        />
         </Routes>
       </Router>
     </AuthProvider>
